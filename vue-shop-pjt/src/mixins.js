@@ -2,15 +2,26 @@ import axios from "axios";
 
 export default {
     methods: {
-        async $api(url, data) {
+        async $post(url, param) {
             return (
                 await axios({
                     method: "post",
                     url,
-                    data,
+                    param,
                 }).catch((e) => {
                     console.error(e);
                 })
+            ).data;
+        },
+        async $get(url, param) {
+            return (
+                await axios
+                    .get(url, {
+                        parmas: param,
+                    })
+                    .catch((e) => {
+                        console.error(e);
+                    })
             ).data;
         },
         $base64(file) {

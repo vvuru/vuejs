@@ -1,10 +1,22 @@
 <template>
-  <nav>
-    <router-link to="/login">Login</router-link> |
-    <router-link to="/kakaologin">Kakao Login</router-link>
-  </nav>
-  <router-view/>
+  <div>
+    <Header />
+    <router-view/>
+    <Footer />
+  </div>
 </template>
+
+<script>
+import Header from './layout/Header'
+import Footer from './layout/Footer'
+
+export default {
+  components: { Header, Footer },
+  computed: {
+
+  }
+}
+</script>
 
 <style>
 #app {
@@ -28,3 +40,5 @@ nav a.router-link-exact-active {
   color: #42b983;
 }
 </style>
+
+

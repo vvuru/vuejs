@@ -21,17 +21,19 @@ export default {
         getKakaoAccount() {
             window.Kakao.API.request({
                 url: '/v2/user/me',
-                success: res => {
+                success: async res => {
                     const acc = res.kakao_account;
                     console.log(acc);
                     const params = {
+                        social_type: 1,
                         email: acc.email,
                         nickname: acc.profile.nickname,
                         profile_img: acc.profile_image_url,
                         thumb_img: acc.profile.thumbnail_image_url
                     }
                     console.log(params);
-                    alert('Success!');
+                    const iuser = await this.$api('/user/signup', params);
+                    console.log(data.result);
                 },
                 fail: e => {
                     console.error(e);

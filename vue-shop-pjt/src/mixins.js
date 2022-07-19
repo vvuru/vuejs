@@ -7,23 +7,25 @@ export default {
                 await axios({
                     method: "post",
                     url,
-                    param,
+                    data: param,
                 }).catch((e) => {
-                    console.error(e);
+                    console.log(e);
                 })
             ).data;
         },
+
         async $get(url, param) {
             return (
                 await axios
                     .get(url, {
-                        parmas: param,
+                        params: param,
                     })
                     .catch((e) => {
-                        console.error(e);
+                        console.log(e);
                     })
             ).data;
         },
+
         $base64(file) {
             return new Promise((resolve) => {
                 const fr = new FileReader();

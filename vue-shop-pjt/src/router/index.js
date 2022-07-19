@@ -5,6 +5,19 @@ import ProductCreate from "../views/ProductCreate.vue";
 import ProductUpdate from "../views/ProductUpdate.vue";
 import SalesList from "../views/SalesList.vue";
 import ImageInsert from "../views/ImageInsert.vue";
+import store from "@/store";
+import Swal from "sweetalert2";
+
+// navigation guard
+const requireAuth = () => {
+    return (to, from, next) => {
+        if (store.state.user.iuser === undefined) {
+            Swal.fire("Do Login", "", "warning");
+            return;
+        }
+        return next();
+    };
+};
 
 const routes = [
     {
@@ -21,6 +34,7 @@ const routes = [
         path: "/create",
         name: "ProductCreate",
         component: ProductCreate,
+        beforeEnter: requireAuth(),
     },
     {
         path: "/update",
@@ -36,11 +50,12 @@ const routes = [
         path: "/image_insert",
         name: "ImageInsert",
         component: ImageInsert,
+        beforeEnter: requireAuth(),
     },
 ];
 
 const router = createRouter({
-    history: createWebHistory(process.env.BASE_URL),
+    history: createWebHistory(),
     routes,
 });
 

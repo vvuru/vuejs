@@ -5,7 +5,7 @@
       
       <div class="mb-3 row">
         <label class="col-md-3 col-form-label">제품ID</label>
-        <div class="col-md-9">{{ productDeatil.id }}</div>
+        <div class="col-md-9">{{ productDetail.id }}</div>
       </div>
       
       <div class="mb-3 row">
@@ -86,7 +86,7 @@
 <script>
 export default {
   data() {
-    return {
+    return {      
       productName: '',
       productDetail: {},
       productImage: []
@@ -96,7 +96,7 @@ export default {
     this.productId = this.$route.query.product_id;    
     this.productDetail = this.$store.state.sallerSelectedProduct;
   },
-  methods: {
+  methods: {    
   }
 }
 </script>

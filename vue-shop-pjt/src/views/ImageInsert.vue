@@ -83,7 +83,7 @@
   </main>
 </template>
 
-<script>
+<script></script>
 export default {
   data() {
     return {      
@@ -93,10 +93,19 @@ export default {
     }
   },
   created() {
-    this.productId = this.$route.query.product_id;    
     this.productDetail = this.$store.state.sallerSelectedProduct;
   },
   methods: {    
+    async getProductImage() {
+      this.productImage = await this.$get("/api/imageList",{productid:[this.productDetail.id]});
+    },
+    async uploadFile(files, type) {
+      console.log(files);
+      const image = await this.$base64(files[0]);
+      const formData = {image};
+      const { error } = await this.$post(`/api/upload/${this.productDetail.id}/${type}`,formData);
+      console.log(error);
+    }
   }
 }
 </script>

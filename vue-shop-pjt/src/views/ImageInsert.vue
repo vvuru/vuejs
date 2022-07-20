@@ -120,7 +120,6 @@ export default {
   created() {     
     this.productDetail = this.$store.state.sallerSelectedProduct;
     this.getProductImage();
-    this.deleteImage();
   },
   methods: {
     async getProductImage() {
@@ -142,12 +141,14 @@ export default {
         cancelButtonText: '취소'
       }).then(async (result) => {
         if (result.isConfirmed) {
-          await this.$get(`/api/productImageDelete/${this.productDetail.id}`);
-          this.getProductImage();
+          const result1 = await this.$delete(`/api/productImageDelete/${id}`);
+          console.log(result1);
+          // this.getProductImage();
           this.$swal.fire('삭제되었습니다!','','success') ;
         }
       })
-      console.log(id);
+      // console.log(id);
+      // console.log(this.productDetail.id);
     }
   }
 }

@@ -121,6 +121,9 @@ export default {
     this.productDetail = this.$store.state.sallerSelectedProduct;
     this.getProductImage();
   },
+  updated() {
+    this.getProductImage();
+  },
   methods: {
     async getProductImage() {
       this.productImage = await this.$get(`/api/productImageList/${this.productDetail.id}`);

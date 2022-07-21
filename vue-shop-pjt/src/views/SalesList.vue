@@ -20,7 +20,9 @@
         </thead>
         <tbody>
           <tr v-for="(product, idx) in productList" :key="product.id">
-            <td></td>
+            <td>
+              <img v-if="product.path !== null" :src="`/static/img/${product.id}/1/${product.path}`" style="height:50px; width: auto;">
+            </td>
             <td>{{ product.product_name }}</td>
             <td>{{ product.product_price }}</td>
             <td>{{ product.delivery_price }}</td>
@@ -35,7 +37,7 @@
               <router-link class="nav-link" :to="{ path: '/update', query: {product_id: product.id} }">
                 <button type="button" class="btn btn-warning me-1">수정</button>
               </router-link>              
-              <button type="button" class="btn btn-danger">삭제</button>
+              <button type="button" class="btn btn-danger" @click="deleteProduct(product.id)">삭제</button>
             </td>
           </tr>
         </tbody>
@@ -59,6 +61,9 @@ export default {
     goToImageInsert(idx) {
       this.$store.commit('sallerSelectedProduct', this.productList[idx]);
       this.$router.push( {path: '/image_insert'} );
+    },
+    deleteProduct(productId) {
+      console.log(productId);
     }
   },
   created() {

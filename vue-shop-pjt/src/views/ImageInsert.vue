@@ -23,7 +23,7 @@
                 v-for="item in productImage.filter( c => c.type === 1 )">
               <div class="position-relative">
                 <img :src="`/static/img/${item.product_id}/${item.type}/${item.path}`" class="img-fluid">
-                <div class="position-absolute top-0 end-0" style="cursor:pointer;" @click="deleteImage(item.id)">X</div>
+                <div class="position-absolute top-0 end-0" style="cursor:pointer;" @click="deleteImage(item)">X</div>
               </div>
             </div>
 
@@ -53,7 +53,7 @@
                 } )">
               <div class="position-relative">
                 <img :src="`/static/img/${item.product_id}/${item.type}/${item.path}`" class="img-fluid">
-                <div class="position-absolute top-0 end-0" style="cursor:pointer;" @click="deleteImage(item.id)">X</div>
+                <div class="position-absolute top-0 end-0" style="cursor:pointer;" @click="deleteImage(item)">X</div>
               </div>
             </div>
           </div>
@@ -81,7 +81,7 @@
                 v-for="item in productImage.filter( c => c.type === 3 )">
               <div class="position-relative">
                 <img :src="`/static/img/${item.product_id}/${item.type}/${item.path}`" class="img-fluid">
-                <div class="position-absolute top-0 end-0" style="cursor:pointer;" @click="deleteImage(item.id)">X</div>
+                <div class="position-absolute top-0 end-0" style="cursor:pointer;" @click="deleteImage(item)">X</div>
               </div>
             </div>
           </div>
@@ -121,9 +121,6 @@ export default {
     this.productDetail = this.$store.state.sallerSelectedProduct;
     this.getProductImage();
   },
-  updated() {
-    this.getProductImage();
-  },
   methods: {
     async getProductImage() {
       this.productImage = await this.$get(`/api/productImageList/${this.productDetail.id}`);
@@ -136,23 +133,10 @@ export default {
       const { error } = await this.$post(`/api/upload/${this.productDetail.id}/${type}`, formData);
       console.log(error);
     },
-    deleteImage(id) {
-      this.$swal.fire({
-        title: '정말 삭제하시겠습니까?',
-        showCancelButton: true,
-        confirmButtonText: '삭제',
-        cancelButtonText: '취소'
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          const result1 = await this.$delete(`/api/productImageDelete/${id}`);
-          console.log(result1);
-          // this.getProductImage();
-          this.$swal.fire('삭제되었습니다!','','success') ;
-        }
-      })
-      // console.log(id);
-      // console.log(this.productDetail.id);
-    }
+    async deleteImage({id, product_id, type, path}) {
+      const result = await this.$delete(`/api/productImageDelete/${id}/${product_id}/${type}/${path}`)
+      console.log(result);
+    } 
   }
 }
 </script>

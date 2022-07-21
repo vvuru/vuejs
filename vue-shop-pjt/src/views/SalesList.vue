@@ -10,7 +10,8 @@
       <table class="table table-bordered">
         <thead>
           <tr>
-            <th></th>
+            <th>              
+            </th>
             <th>제품명</th>
             <th>제품가격</th>
             <th>배송비</th>
@@ -21,7 +22,9 @@
         <tbody>
           <tr v-for="(product, idx) in productList" :key="product.id">
             <td>
-              <img v-if="product.path !== null" :src="`/static/img/${product.id}/1/${product.path}`" style="height:50px; width: auto;">
+              <img v-if="product.path !== null" 
+                  :src="`/static/img/${product.id}/1/${product.path}`" 
+                  style="height:50px; width:auto;">
             </td>
             <td>{{ product.product_name }}</td>
             <td>{{ product.product_price }}</td>
@@ -65,17 +68,16 @@ export default {
       this.$store.commit('sallerSelectedProduct', this.productList[idx]);
       this.$router.push( {path: '/image_insert'} );
     },
-    async deleteProduct(productId,idx) {
-      console.log(this.productList);
-      console.log(idx);
+    async deleteProduct(productId, idx) {
+      console.log(productId);
       const res = await this.$delete(`/api/deleteProduct/${productId}`, {});
       if(res.result === 1) {
         this.productList.splice(idx, 1);        
       }
     }
   },
-  created() {
-    this.getProductList();
+  created() {    
+    this.getProductList();    
   }
 }
 </script>
